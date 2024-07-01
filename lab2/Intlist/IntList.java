@@ -128,6 +128,7 @@ public class IntList {
                     isB = true;
                     result.rest = new IntList(ptr.first, null);
                     result = result.rest;
+                    if (B == null) return resultPtr;
                     ptr = B;
                 } else { // last
                     result.rest = new IntList(ptr.first, null);
