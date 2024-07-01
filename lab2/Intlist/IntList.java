@@ -105,17 +105,19 @@ public class IntList {
     public static IntList catenate(IntList A, IntList B) {
         IntList result;
         IntList ptr;
+        boolean isB;
         if (A != null) {
             result = new IntList(A.first, null);
             ptr = A.rest;
+            isB = false;
         } else {
             if (B == null) return null;
             result = new IntList(B.first, null);
             ptr = B.rest;
+            isB = true;
         }
 
         IntList resultPtr = result;
-        boolean isB = false;
 
         while (ptr.rest != null) {
             result.rest = new IntList(ptr.first, null);
