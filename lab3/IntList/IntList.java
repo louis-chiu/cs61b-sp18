@@ -257,7 +257,8 @@ public class IntList {
             result = new IntList(A.first, null);
             result.rest = tmp;
         }
-        return result;
+        A = result;
+        return A;
     }
 
     @Override
