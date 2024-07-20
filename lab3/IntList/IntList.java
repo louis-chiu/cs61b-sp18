@@ -251,14 +251,22 @@ public class IntList {
     public static IntList reverse(IntList A) {
         if (A == null) return null;
         IntList result = new IntList(A.first, null);
+        IntList firstANode = A;
         while (A.rest != null) {
             A = A.rest;
             IntList tmp = result;
             result = new IntList(A.first, null);
             result.rest = tmp;
         }
-        A = result;
-        return A;
+
+        IntList realResult = firstANode;
+        while (result != null) {
+            firstANode.first = result.first;
+            firstANode = firstANode.rest;
+            result = result.rest;
+        }
+
+        return realResult;
     }
 
     @Override
