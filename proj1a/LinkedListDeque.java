@@ -1,30 +1,30 @@
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> {
     private class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+        private T item;
+        private Node prev;
+        private Node next;
 
-        public Node() {
+        Node() {
             this.item = null;
             this.prev = null;
             this.next = null;
         }
 
-        public Node(T item) {
+        Node(T item) {
             this.item = item;
             this.prev = null;
             this.next = null;
         }
 
-        public Node(T item, Node prev, Node next) {
+        Node(T item, Node prev, Node next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
         }
     }
 
-    public Node sentinel;
-    public int size;
+    private Node sentinel;
+    private int size;
 
     public LinkedListDeque() {
         this.sentinel = new Node();
@@ -34,7 +34,6 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
 
-    @Override
     public void addFirst(T item) {
         Node nextNode = this.sentinel.next;
         Node newNode = new Node(item, null, nextNode);
@@ -48,7 +47,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.size += 1;
     }
 
-    @Override
     public void addLast(T item) {
         Node prevNode = this.sentinel.prev;
         Node newNode = new Node(item, prevNode, null);
@@ -62,17 +60,14 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.size += 1;
     }
 
-    @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
 
-    @Override
     public int size() {
         return this.size;
     }
 
-    @Override
     public void printDeque() {
         Node pointer = this.sentinel.next;
         while (pointer != null) {
@@ -82,7 +77,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         System.out.println();
     }
 
-    @Override
     public T removeFirst() {
         Node removedNode = this.sentinel.next;
         if (removedNode == null) {
@@ -102,7 +96,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         return removedNode.item;
     }
 
-    @Override
     public T removeLast() {
         Node removedNode = this.sentinel.prev;
         if (removedNode == null) {
@@ -122,7 +115,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         return removedNode.item;
     }
 
-    @Override
     public T get(int index) {
         Node pointer = this.sentinel.next;
         int counter = 0;

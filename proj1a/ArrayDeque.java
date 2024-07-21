@@ -1,9 +1,8 @@
-@SuppressWarnings("unchecked")
-public class ArrayDeque<T> implements Deque<T> {
-    T[] items;
-    int indexFront;
-    int indexBack;
-    int size;
+public class ArrayDeque<T> {
+    private T[] items;
+    private int indexFront;
+    private int indexBack;
+    private int size;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
@@ -18,7 +17,8 @@ public class ArrayDeque<T> implements Deque<T> {
         if (this.indexFront > this.indexBack) {
             /* indexFront is in right hand side of indexBack */
             int numOfEleInBackOfIndexFront = this.items.length - this.indexFront - 1;
-            System.arraycopy(this.items, this.indexFront + 1, newItems, 1, numOfEleInBackOfIndexFront);
+            System.arraycopy(this.items, this.indexFront + 1, newItems,
+                    1, numOfEleInBackOfIndexFront);
             System.arraycopy(this.items, 0, newItems, numOfEleInBackOfIndexFront, this.indexBack);
         } else {
             /* indexFront is in left hand side of indexBack */
@@ -29,7 +29,6 @@ public class ArrayDeque<T> implements Deque<T> {
         this.items = newItems;
     }
 
-    @Override
     public void addFirst(T item) {
         if (((double) this.size) / this.items.length >= 0.25) {
             resize(this.size * this.size);
@@ -40,7 +39,6 @@ public class ArrayDeque<T> implements Deque<T> {
         this.size++;
     }
 
-    @Override
     public void addLast(T item) {
         if (((double) this.size) / this.items.length >= 0.25) {
             resize(this.size * this.size);
@@ -51,24 +49,20 @@ public class ArrayDeque<T> implements Deque<T> {
         this.size++;
     }
 
-    @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
 
-    @Override
     public int size() {
         return this.size;
     }
 
-    @Override
     public void printDeque() {
         for (int i = this.indexFront + 1; i < this.indexBack; i++) {
             System.out.println(this.items[i] + " ");
         }
     }
 
-    @Override
     public T removeFirst() {
         if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
             this.resize((int) Math.sqrt(this.size));
@@ -80,7 +74,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return removedItem;
     }
 
-    @Override
     public T removeLast() {
         if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
             this.resize((int) Math.sqrt(this.size));
@@ -92,7 +85,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return removedItem;
     }
 
-    @Override
     public T get(int index) {
         return this.items[getPointerIndexAfterMoveToRight(this.indexFront, index) + 1];
     }
