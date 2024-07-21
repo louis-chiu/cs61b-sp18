@@ -1,0 +1,158 @@
+public class ArrayDeque<T> implements Deque<T> {
+    T[] items;
+    int indexFront;
+    int indexBack;
+    int size;
+
+    public ArrayDeque() {
+        items = (T[]) new Object[8];
+        this.size = 0;
+        this.indexFront = 4;
+        this.indexBack = 5;
+    }
+
+    private void resize(int newSize) {
+        T[] newItems = (T[]) new Object[newSize];
+
+        if (this.indexFront > this.indexBack) {
+            /* indexFront is in right hand side of indexBack */
+            int numOfEleInBackOfIndexFront = this.items.length - this.indexFront;
+            System.arraycopy(this.items, this.indexFront, newItems, 1, numOfEleInBackOfIndexFront);
+            System.arraycopy(this.items, 0, newItems, numOfEleInBackOfIndexFront, this.indexBack);
+        } else {
+            /* indexFront is in left hand side of indexBack */
+            System.arraycopy(this.items, this.indexFront + 1, newItems, 1, this.size);
+        }
+        this.indexFront = 0;
+        this.indexBack = this.size + 1;
+        this.items = newItems;
+    }
+
+    @Override
+    public void addFirst(T item) {
+        if (((double) this.size) / this.items.length >= 0.25) {
+            resize(this.size * this.size);
+        }
+
+        this.items[this.indexFront] = item;
+        this.indexFront = getPointerIndexAfterMoveToLeft(this.indexFront);
+        this.size++;
+    }
+
+    @Override
+    public void addLast(T item) {
+        if (((double) this.size) / this.items.length >= 0.25) {
+            resize(this.size * this.size);
+        }
+
+        this.items[this.indexBack] = item;
+        this.indexBack = getPointerIndexAfterMoveToRight(this.indexBack);
+        this.size++;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    @Override
+    public void printDeque() {
+        for (int i = this.indexFront + 1; i < this.indexBack; i++) {
+            System.out.println(this.items[i] + " ");
+        }
+    }
+
+    @Override
+    public T removeFirst() {
+        if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
+            this.resize((int) Math.sqrt(this.size));
+        }
+        T removedItem = this.items[getIndexOfFirst()];
+        this.items[getIndexOfFirst()] = null;
+        this.indexFront = getPointerIndexAfterMoveToRight(this.indexFront);
+        this.size -= 1;
+        return removedItem;
+    }
+
+    @Override
+    public T removeLast() {
+        if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
+            this.resize((int) Math.sqrt(this.size));
+        }
+        T removedItem = this.items[getIndexOfLast()];
+        this.items[getIndexOfLast()] = null;
+        this.indexBack = getPointerIndexAfterMoveToLeft(this.indexBack);
+        this.size -= 1;
+        return removedItem;
+    }
+
+    @Override
+    public T get(int index) {
+        return this.items[getPointerIndexAfterMoveToRight(this.indexFront, index) + 1];
+    }
+
+    /**
+     * Get the index of the first element.
+     * @return index
+     */
+    private int getIndexOfFirst() {
+        if (this.indexFront == this.items.length - 1) {
+            return 0;
+        }
+        return this.indexFront + 1;
+    }
+
+    /**
+     * Get the index of the last element.
+     * @return index
+     */
+    private int getIndexOfLast() {
+        if (this.indexBack == 0) {
+            return this.items.length - 1;
+        }
+        return this.indexBack - 1;
+    }
+
+    /**
+     * Get the next index after pointer move to left circularly.
+     * @param index current index of pointer
+     * @return next index
+     */
+    private int getPointerIndexAfterMoveToLeft(int index) {
+        return (index - 1) % this.items.length + this.items.length;
+    }
+
+    /**
+     * Get the next index after pointer move to left circularly.
+     * @param index current index of pointer
+     * @param numberOfSteps the number of move steps
+     * @return next index
+     */
+    private int getPointerIndexAfterMoveToLeft(int index, int numberOfSteps) {
+        return (index - numberOfSteps) % this.items.length + this.items.length;
+    }
+
+    /**
+     * Get the next index after pointer move to right circularly.
+     * @param index current index of pointer
+     * @return next index
+     */
+    private int getPointerIndexAfterMoveToRight(int index) {
+        return (index + 1) % this.items.length - 1;
+    }
+
+    /**
+     * Get the next index after pointer move to right circularly.
+     * @param index current index of pointer
+     * @param numberOfSteps the number of move steps
+     * @return next index
+     */
+    private int getPointerIndexAfterMoveToRight(int index, int numberOfSteps) {
+        return (index + numberOfSteps) % this.items.length - 1;
+    }
+}
