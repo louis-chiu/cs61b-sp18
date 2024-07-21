@@ -1,8 +1,9 @@
+@SuppressWarnings("ALL")
 public class LinkedListDeque<T> {
     private class Node {
-        private T item;
-        private Node prev;
-        private Node next;
+        public T item;
+        public Node prev;
+        public Node next;
 
         Node() {
             this.item = null;
