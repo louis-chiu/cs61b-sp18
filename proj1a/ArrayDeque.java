@@ -1,3 +1,4 @@
+@SuppressWarnings("unchecked")
 public class ArrayDeque<T> {
     private T[] items;
     private int indexFront;
