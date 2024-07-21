@@ -1,3 +1,4 @@
+@SuppressWarnings("unchecked")
 public class ArrayDeque<T> implements Deque<T> {
     T[] items;
     int indexFront;
@@ -16,8 +17,8 @@ public class ArrayDeque<T> implements Deque<T> {
 
         if (this.indexFront > this.indexBack) {
             /* indexFront is in right hand side of indexBack */
-            int numOfEleInBackOfIndexFront = this.items.length - this.indexFront;
-            System.arraycopy(this.items, this.indexFront, newItems, 1, numOfEleInBackOfIndexFront);
+            int numOfEleInBackOfIndexFront = this.items.length - this.indexFront - 1;
+            System.arraycopy(this.items, this.indexFront + 1, newItems, 1, numOfEleInBackOfIndexFront);
             System.arraycopy(this.items, 0, newItems, numOfEleInBackOfIndexFront, this.indexBack);
         } else {
             /* indexFront is in left hand side of indexBack */
@@ -124,7 +125,7 @@ public class ArrayDeque<T> implements Deque<T> {
      * @return next index
      */
     private int getPointerIndexAfterMoveToLeft(int index) {
-        return (index - 1) % this.items.length + this.items.length;
+        return (index - 1 + this.items.length) % this.items.length;
     }
 
     /**
@@ -134,7 +135,7 @@ public class ArrayDeque<T> implements Deque<T> {
      * @return next index
      */
     private int getPointerIndexAfterMoveToLeft(int index, int numberOfSteps) {
-        return (index - numberOfSteps) % this.items.length + this.items.length;
+        return (index - numberOfSteps + this.items.length) % this.items.length;
     }
 
     /**
@@ -143,7 +144,7 @@ public class ArrayDeque<T> implements Deque<T> {
      * @return next index
      */
     private int getPointerIndexAfterMoveToRight(int index) {
-        return (index + 1) % this.items.length - 1;
+        return (index + 1) % this.items.length;
     }
 
     /**
@@ -153,6 +154,6 @@ public class ArrayDeque<T> implements Deque<T> {
      * @return next index
      */
     private int getPointerIndexAfterMoveToRight(int index, int numberOfSteps) {
-        return (index + numberOfSteps) % this.items.length - 1;
+        return (index + numberOfSteps) % this.items.length;
     }
 }

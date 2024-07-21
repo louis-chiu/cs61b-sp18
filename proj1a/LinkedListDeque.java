@@ -36,10 +36,13 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public void addFirst(T item) {
-        Node newNode = new Node(item, null, this.sentinel.next);
-        if (this.isEmpty()){
+        Node nextNode = this.sentinel.next;
+        Node newNode = new Node(item, null, nextNode);
+        if (this.isEmpty()) {
             this.sentinel.prev = newNode;
             newNode.next = null;
+        } else {
+            nextNode.prev = newNode;
         }
         this.sentinel.next = newNode;
         this.size += 1;
@@ -47,10 +50,13 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public void addLast(T item) {
-        Node newNode = new Node(item, this.sentinel.prev, null);
-        if (this.isEmpty()){
+        Node prevNode = this.sentinel.prev;
+        Node newNode = new Node(item, prevNode, null);
+        if (this.isEmpty()) {
             this.sentinel.next = newNode;
             newNode.prev = null;
+        } else {
+            prevNode.next = newNode;
         }
         this.sentinel.prev = newNode;
         this.size += 1;
@@ -73,6 +79,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             System.out.print(pointer.item + " ");
             pointer = pointer.next;
         }
+        System.out.println();
     }
 
     @Override
@@ -84,8 +91,14 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.sentinel.next = removedNode.next;
         this.size -= 1;
 
-        removedNode.next = null;
+        // release removeNode reference
         removedNode.prev = null;
+
+        Node nextNode = removedNode.next;
+        if (nextNode != null) {
+            nextNode.prev = null;
+            removedNode.next = null;
+        }
         return removedNode.item;
     }
 
@@ -98,14 +111,20 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.sentinel.prev = removedNode.prev;
         this.size -= 1;
 
+        // release removedNode reference
         removedNode.next = null;
-        removedNode.prev = null;
+
+        Node prevNode = removedNode.prev;
+        if (prevNode != null) {
+            prevNode.next = null;
+            removedNode.prev = null;
+        }
         return removedNode.item;
     }
 
     @Override
     public T get(int index) {
-        Node pointer= this.sentinel.next;
+        Node pointer = this.sentinel.next;
         int counter = 0;
         if (index <= this.size || index < 0) {
             throw new IndexOutOfBoundsException("Out of bounds");
