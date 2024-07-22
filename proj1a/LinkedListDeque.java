@@ -1,4 +1,3 @@
-@SuppressWarnings("ALL")
 public class LinkedListDeque<T> {
     private class Node {
         public T item;
@@ -128,6 +127,19 @@ public class LinkedListDeque<T> {
             counter++;
         }
         return pointer.item;
+    }
+
+    public T getRecursive(int index) {
+        Node firstNode = this.sentinel.next;
+
+        return getTheNextNode(firstNode, index).item;
+    }
+
+    private Node getTheNextNode(Node node, int distanceIndex) {
+        if (distanceIndex == 0) {
+            return node;
+        }
+        return getTheNextNode(node.next, distanceIndex - 1);
     }
 
 }
