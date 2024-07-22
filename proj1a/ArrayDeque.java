@@ -17,10 +17,10 @@ public class ArrayDeque<T> {
 
         if (this.indexFront > this.indexBack) {
             /* indexFront is in right hand side of indexBack */
-            int numOfEleInBackOfIndexFront = this.items.length - this.indexFront - 1;
+            int numOfEleAfterIdxFront = this.items.length - this.indexFront - 1;
             System.arraycopy(this.items, getPointerIndexAfterMoveToRight(this.indexFront),
-                    newItems, 1, numOfEleInBackOfIndexFront);
-            System.arraycopy(this.items, 0, newItems, numOfEleInBackOfIndexFront, this.indexBack);
+                    newItems, 1, numOfEleAfterIdxFront);
+            System.arraycopy(this.items, 0, newItems, numOfEleAfterIdxFront + 1, this.indexBack);
         } else {
             /* indexFront is in left hand side of indexBack */
             System.arraycopy(this.items, getPointerIndexAfterMoveToRight(this.indexFront),
@@ -88,7 +88,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        return this.items[getPointerIndexAfterMoveToRight(this.getIndexOfFirst(), index) ];
+        return this.items[getPointerIndexAfterMoveToRight(this.getIndexOfFirst(), index)];
     }
 
     /**
@@ -96,10 +96,7 @@ public class ArrayDeque<T> {
      * @return index
      */
     private int getIndexOfFirst() {
-        if (this.indexFront == this.items.length - 1) {
-            return 0;
-        }
-        return this.indexFront + 1;
+        return getPointerIndexAfterMoveToRight(this.indexFront);
     }
 
     /**
@@ -107,10 +104,7 @@ public class ArrayDeque<T> {
      * @return index
      */
     private int getIndexOfLast() {
-        if (this.indexBack == 0) {
-            return this.items.length - 1;
-        }
-        return this.indexBack - 1;
+        return getPointerIndexAfterMoveToLeft(this.indexBack);
     }
 
     /**
@@ -118,7 +112,7 @@ public class ArrayDeque<T> {
      * @param index current index of pointer
      * @return next index
      */
-    public int getPointerIndexAfterMoveToLeft(int index) {
+    private int getPointerIndexAfterMoveToLeft(int index) {
         return (index - 1 + this.items.length) % this.items.length;
     }
 
@@ -128,7 +122,7 @@ public class ArrayDeque<T> {
      * @param numberOfSteps the number of move steps
      * @return next index
      */
-    public int getPointerIndexAfterMoveToLeft(int index, int numberOfSteps) {
+    private int getPointerIndexAfterMoveToLeft(int index, int numberOfSteps) {
         return (index - numberOfSteps + this.items.length) % this.items.length;
     }
 
@@ -137,7 +131,7 @@ public class ArrayDeque<T> {
      * @param index current index of pointer
      * @return next index
      */
-    public int getPointerIndexAfterMoveToRight(int index) {
+    private int getPointerIndexAfterMoveToRight(int index) {
         return (index + 1) % this.items.length;
     }
 
@@ -147,9 +141,8 @@ public class ArrayDeque<T> {
      * @param numberOfSteps the number of move steps
      * @return next index
      */
-    public int getPointerIndexAfterMoveToRight(int index, int numberOfSteps) {
-        int result = (index + numberOfSteps) % this.items.length;
-        return result;
+    private int getPointerIndexAfterMoveToRight(int index, int numberOfSteps) {
+        return (index + numberOfSteps) % this.items.length;
     }
 
     @Override
