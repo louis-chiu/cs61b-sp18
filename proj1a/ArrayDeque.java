@@ -67,7 +67,7 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
-            this.resize(this.items.length * 2);
+            this.resize(this.items.length / 2);
         }
         T removedItem = this.items[getIndexOfFirst()];
         this.items[getIndexOfFirst()] = null;
@@ -78,7 +78,7 @@ public class ArrayDeque<T> {
 
     public T removeLast() {
         if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
-            this.resize(this.items.length * 2);
+            this.resize(this.items.length / 2);
         }
         T removedItem = this.items[getIndexOfLast()];
         this.items[getIndexOfLast()] = null;
