@@ -23,7 +23,7 @@ public class ArrayDeque<T> {
             System.arraycopy(this.items, 0, newItems, numOfEleAfterIdxFront + 1, this.indexBack);
         } else {
             /* indexFront is in left hand side of indexBack */
-            System.arraycopy(this.items, getPointerIndexAfterMoveToRight(this.indexFront),
+            System.arraycopy(this.items, getIndexOfFirst(),
                     newItems, 1, this.size);
         }
         this.indexFront = 0;
