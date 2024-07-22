@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     private class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+        private T item;
+        private Node prev;
+        private Node next;
 
         Node() {
             this.item = null;
@@ -26,6 +26,13 @@ public class LinkedListDeque<T> {
     private Node sentinel;
     private int size;
 
+    /**
+     * When the linkedList
+     *  - Empty: the `sentinel.next` and `sentinel.prev` will point to sentinel itself.
+     *  - Else:
+     *      - the `sentinel.next` points to the front node.
+     *      - the `sentinel.prev` points to the back node.
+     * */
     public LinkedListDeque() {
         this.sentinel = new Node();
         this.sentinel.next = this.sentinel;
@@ -79,7 +86,7 @@ public class LinkedListDeque<T> {
 
     public T removeFirst() {
         Node removedNode = this.sentinel.next;
-        if (removedNode == null) {
+        if (this.isEmpty()) {
             return null;
         }
         this.sentinel.next = removedNode.next;
@@ -98,7 +105,7 @@ public class LinkedListDeque<T> {
 
     public T removeLast() {
         Node removedNode = this.sentinel.prev;
-        if (removedNode == null) {
+        if (this.isEmpty()) {
             return null;
         }
         this.sentinel.prev = removedNode.prev;
@@ -116,11 +123,12 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
+        if (this.isEmpty() || index >= this.size || index < 0) {
+            return null;
+        }
+
         Node pointer = this.sentinel.next;
         int counter = 0;
-        if (index <= this.size || index < 0) {
-            throw new IndexOutOfBoundsException("Out of bounds");
-        }
 
         while (index != counter) {
             pointer = pointer.next;
@@ -130,6 +138,9 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
+        if (this.isEmpty() || index >= this.size || index < 0) {
+            return null;
+        }
         Node firstNode = this.sentinel.next;
 
         return getTheNextNode(firstNode, index).item;

@@ -18,12 +18,13 @@ public class ArrayDeque<T> {
         if (this.indexFront > this.indexBack) {
             /* indexFront is in right hand side of indexBack */
             int numOfEleInBackOfIndexFront = this.items.length - this.indexFront - 1;
-            System.arraycopy(this.items, this.indexFront + 1, newItems,
-                    1, numOfEleInBackOfIndexFront);
+            System.arraycopy(this.items, getPointerIndexAfterMoveToRight(this.indexFront),
+                    newItems, 1, numOfEleInBackOfIndexFront);
             System.arraycopy(this.items, 0, newItems, numOfEleInBackOfIndexFront, this.indexBack);
         } else {
             /* indexFront is in left hand side of indexBack */
-            System.arraycopy(this.items, this.indexFront + 1, newItems, 1, this.size);
+            System.arraycopy(this.items, getPointerIndexAfterMoveToRight(this.indexFront),
+                    newItems, 1, this.size);
         }
         this.indexFront = 0;
         this.indexBack = this.size + 1;
