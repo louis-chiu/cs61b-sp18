@@ -20,7 +20,8 @@ public class ArrayDeque<T> {
             int numOfEleAfterIdxFront = this.items.length - this.indexFront - 1;
             System.arraycopy(this.items, getPointerIndexAfterMoveToRight(this.indexFront),
                     newItems, 1, numOfEleAfterIdxFront);
-            System.arraycopy(this.items, 0, newItems, numOfEleAfterIdxFront + 1, this.indexBack);
+            System.arraycopy(this.items, 0, newItems,
+                    numOfEleAfterIdxFront + 1, this.indexBack);
         } else {
             /* indexFront is in left hand side of indexBack */
             System.arraycopy(this.items, getIndexOfFirst(),
@@ -101,6 +102,7 @@ public class ArrayDeque<T> {
 
     /**
      * Get the index of the first element.
+     *
      * @return index
      */
     private int getIndexOfFirst() {
@@ -109,6 +111,7 @@ public class ArrayDeque<T> {
 
     /**
      * Get the index of the last element.
+     *
      * @return index
      */
     private int getIndexOfLast() {
@@ -117,6 +120,7 @@ public class ArrayDeque<T> {
 
     /**
      * Get the next index after pointer move to left circularly.
+     *
      * @param index current index of pointer
      * @return next index
      */
@@ -126,7 +130,8 @@ public class ArrayDeque<T> {
 
     /**
      * Get the next index after pointer move to left circularly.
-     * @param index current index of pointer
+     *
+     * @param index         current index of pointer
      * @param numberOfSteps the number of move steps
      * @return next index
      */
@@ -136,6 +141,7 @@ public class ArrayDeque<T> {
 
     /**
      * Get the next index after pointer move to right circularly.
+     *
      * @param index current index of pointer
      * @return next index
      */
@@ -145,7 +151,8 @@ public class ArrayDeque<T> {
 
     /**
      * Get the next index after pointer move to right circularly.
-     * @param index current index of pointer
+     *
+     * @param index         current index of pointer
      * @param numberOfSteps the number of move steps
      * @return next index
      */
