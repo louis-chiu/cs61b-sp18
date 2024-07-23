@@ -28,11 +28,11 @@ public class LinkedListDeque<T> {
 
     /**
      * When the linkedList
-     *  - Empty: the `sentinel.next` and `sentinel.prev` will point to sentinel itself.
-     *  - Else:
-     *      - the `sentinel.next` points to the front node.
-     *      - the `sentinel.prev` points to the back node.
-     * */
+     * - Empty: the `sentinel.next` and `sentinel.prev` will point to sentinel itself.
+     * - Else:
+     * - the `sentinel.next` points to the front node.
+     * - the `sentinel.prev` points to the back node.
+     */
     public LinkedListDeque() {
         this.sentinel = new Node();
         this.sentinel.next = this.sentinel;
