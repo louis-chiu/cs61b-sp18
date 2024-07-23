@@ -32,7 +32,7 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if (((double) this.size) / this.items.length >= 0.25) {
+        if (((double) this.size) / this.items.length >= 0.55) {
             resize(this.items.length * 2);
         }
 
@@ -42,7 +42,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T item) {
-        if (((double) this.size) / this.items.length >= 0.25) {
+        if (((double) this.size) / this.items.length >= 0.55) {
             resize(this.items.length * 2);
         }
 
