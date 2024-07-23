@@ -66,6 +66,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (this.isEmpty()) {
+            return null;
+        }
+
         if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
             this.resize(this.items.length / 2);
         }
@@ -77,6 +81,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (this.isEmpty()) {
+            return null;
+        }
+
         if (this.items.length > 8 && ((double) this.size) / this.items.length < 0.25) {
             this.resize(this.items.length / 2);
         }
@@ -145,17 +153,4 @@ public class ArrayDeque<T> {
         return (index + numberOfSteps) % this.items.length;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < this.size(); i++) {
-            T t = this.get(i);
-            sb.append(t);
-            if (i != this.size() - 1) {
-                sb.append(", ");
-            }
-        }
-        return sb.toString();
-    }
 }
