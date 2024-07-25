@@ -2,7 +2,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestPalindrome {
-    /*// You must use this palindrome, and not instantiate
+    // You must use this palindrome, and not instantiate
     // new Palindromes, or the autograder might be upset.
     static Palindrome palindrome = new Palindrome();
 
@@ -14,5 +14,46 @@ public class TestPalindrome {
             actual += d.removeFirst();
         }
         assertEquals("persiflage", actual);
-    } Uncomment this class once you've created your Palindrome class. */
+    } // Uncomment this class once you've created your Palindrome class.
+
+    @Test
+    public void testIsPalindrome() {
+        assertFalse(palindrome.isPalindrome("Cat"));
+        assertFalse(palindrome.isPalindrome("Dog"));
+        assertFalse(palindrome.isPalindrome("Heeh"));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertTrue(palindrome.isPalindrome("wow"));
+        assertTrue(palindrome.isPalindrome("racecar"));
+        assertTrue(palindrome.isPalindrome("noon"));
+        assertFalse(palindrome.isPalindrome("horse"));
+
+        int minLength = 4;
+        In in = new In("../library-sp18/data/words.txt");
+
+        while (!in.isEmpty()) {
+            String word = in.readString();
+            if (word.length() >= minLength && palindrome.isPalindrome(word)) {
+                assertTrue(palindrome.isPalindrome(word));
+            }
+        }
+
+        OffByOne offByOne = new OffByOne();
+        assertTrue(palindrome.isPalindrome("ab", offByOne));
+        assertTrue(palindrome.isPalindrome("ba", offByOne));
+        assertTrue(palindrome.isPalindrome("acb", offByOne));
+        assertTrue(palindrome.isPalindrome("%abca&", offByOne));
+        assertTrue(palindrome.isPalindrome("wow", offByOne));
+        assertTrue(palindrome.isPalindrome("racecar", offByOne));
+        assertTrue(palindrome.isPalindrome("noom", offByOne));
+        assertFalse(palindrome.isPalindrome("horse", offByOne));
+        assertFalse(palindrome.isPalindrome("horse", offByOne));
+        assertFalse(palindrome.isPalindrome("Ab", offByOne));
+        assertFalse(palindrome.isPalindrome("aB", offByOne));
+        assertFalse(palindrome.isPalindrome("aBC", offByOne));
+        assertFalse(palindrome.isPalindrome("Cda", offByOne));
+        assertTrue(palindrome.isPalindrome("", offByOne));
+        assertTrue(palindrome.isPalindrome("a", offByOne));
+
+    }
+
 }
