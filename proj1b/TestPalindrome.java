@@ -27,15 +27,6 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("noon"));
         assertFalse(palindrome.isPalindrome("horse"));
 
-        int minLength = 4;
-        In in = new In("../library-sp18/data/words.txt");
-
-        while (!in.isEmpty()) {
-            String word = in.readString();
-            if (word.length() >= minLength && palindrome.isPalindrome(word)) {
-                assertTrue(palindrome.isPalindrome(word));
-            }
-        }
 
         OffByOne offByOne = new OffByOne();
         assertTrue(palindrome.isPalindrome("ab", offByOne));
@@ -53,7 +44,9 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("Cda", offByOne));
         assertTrue(palindrome.isPalindrome("", offByOne));
         assertTrue(palindrome.isPalindrome("a", offByOne));
-
+        
+        OffByN offBy5 = new OffByN(5);
+        assertTrue(palindrome.isPalindrome("binding", offBy5));
     }
 
 }

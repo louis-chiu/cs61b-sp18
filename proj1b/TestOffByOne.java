@@ -11,12 +11,11 @@ public class TestOffByOne {
     // CharacterComparator interface and OffByOne class. *
     @Test
     public void testEqualChars() {
-        assertTrue(offByOne.equalChars('a', 'a'));
-        assertTrue(offByOne.equalChars('b', 'b'));
-        assertTrue(offByOne.equalChars('.', '.'));
-        assertTrue(offByOne.equalChars('好', '好'));
+        assertTrue(offByOne.equalChars('a', 'b'));
+        assertFalse(offByOne.equalChars('b', 'b'));
+        assertFalse(offByOne.equalChars('C', 'C'));
         assertFalse(offByOne.equalChars('!', '@'));
-        assertFalse(offByOne.equalChars('b', 'a'));
+        assertTrue(offByOne.equalChars('b', 'a'));
         assertFalse(offByOne.equalChars('A', 'a'));
         assertFalse(offByOne.equalChars('c', 'C'));
     }
