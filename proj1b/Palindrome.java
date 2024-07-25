@@ -1,4 +1,4 @@
-public class Palindrome<T> {
+public class Palindrome {
 
     public Deque<Character> wordToDeque(String word) {
         Deque<Character> deque = new LinkedListDeque<>();
